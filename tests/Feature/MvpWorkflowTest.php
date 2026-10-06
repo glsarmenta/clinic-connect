@@ -90,6 +90,22 @@ class MvpWorkflowTest extends TestCase
         );
     }
 
+    public function test_anyone_or_patient_can_access_clinic_settings_during_demo(): void
+    {
+        // Secretary can access without 403
+        $response = $this->actingAs($this->secretary)->get(route('doctor.clinic-settings.edit'));
+        $response->assertStatus(200);
+        $response->assertInertia(fn ($page) => $page
+            ->component('Clinic/Settings')
+            ->has('clinic')
+        );
+
+        // Guest can also access (auto-logs in demo doctor)
+        auth()->logout();
+        $guestResponse = $this->get(route('doctor.clinic-settings.edit'));
+        $guestResponse->assertStatus(200);
+    }
+
     public function test_doctor_or_owner_can_update_clinic_homepage_details_and_branding(): void
     {
         $this->actingAs($this->doctor);
