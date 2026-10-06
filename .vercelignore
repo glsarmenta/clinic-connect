@@ -1,0 +1,7 @@
+/vendor
+*.mp4
+*.pdf
+database/*.sqlite*
+clinic_connect
+testing
+tests/
