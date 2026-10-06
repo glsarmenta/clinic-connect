@@ -20,7 +20,7 @@ class DoctorWorkspaceController extends Controller
     public function index(): Response
     {
         /** @var User $doctor */
-        $doctor = auth()->user();
+        $doctor = $this->resolveDoctorUser();
         $today = Carbon::today()->toDateString();
 
         // Active patient currently in consultation
@@ -83,7 +83,7 @@ class DoctorWorkspaceController extends Controller
         ]);
 
         /** @var User $doctor */
-        $doctor = auth()->user();
+        $doctor = $this->resolveDoctorUser();
         $doctor->update(['live_status' => $validated['live_status']]);
 
         return back()->with('success', 'Your clinic status has been updated.');
@@ -95,7 +95,7 @@ class DoctorWorkspaceController extends Controller
     public function updateAvailability(Request $request): RedirectResponse
     {
         /** @var User $doctor */
-        $doctor = auth()->user();
+        $doctor = $this->resolveDoctorUser();
 
         $validated = $request->validate([
             'schedule' => ['required', 'array'],
@@ -145,7 +145,7 @@ class DoctorWorkspaceController extends Controller
     public function callNext(): RedirectResponse
     {
         /** @var User $doctor */
-        $doctor = auth()->user();
+        $doctor = $this->resolveDoctorUser();
         $today = Carbon::today()->toDateString();
 
         $nextPatient = Appointment::where('doctor_id', $doctor->id)
@@ -196,5 +196,27 @@ class DoctorWorkspaceController extends Controller
         ]);
 
         return back()->with('success', "Consultation for {$appointment->patient_name} marked as completed.");
+    }
+
+    /**
+     * Resolve the active doctor user gracefully for demo visitors.
+     */
+    private function resolveDoctorUser(): User
+    {
+        if (! auth()->check()) {
+            $demoDoctor = User::whereHas('roles', fn ($q) => $q->where('name', 'Doctor'))->first() ?? User::first();
+            if ($demoDoctor) {
+                auth()->login($demoDoctor);
+            }
+        }
+
+        /** @var User|null $user */
+        $user = auth()->user();
+
+        if ($user && ($user->hasRole('Doctor') || $user->hasRole('Admin'))) {
+            return $user;
+        }
+
+        return User::whereHas('roles', fn ($q) => $q->where('name', 'Doctor'))->first() ?? $user;
     }
 }

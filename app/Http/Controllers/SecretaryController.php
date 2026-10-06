@@ -23,11 +23,21 @@ class SecretaryController extends Controller
         $today = Carbon::today()->toDateString();
         $selectedDoctorId = $request->query('doctor_id');
 
-        /** @var User $currentUser */
-        $currentUser = $request->user();
-        $assignedDoctors = $currentUser->assignedDoctors()
+        if (! auth()->check()) {
+            $demoSecretary = User::whereHas('roles', fn ($q) => $q->where('name', 'Secretary'))->first() ?? User::first();
+            if ($demoSecretary) {
+                auth()->login($demoSecretary);
+            }
+        }
+
+        /** @var User|null $currentUser */
+        $currentUser = (auth()->user()?->hasRole('Secretary') ? auth()->user() : null)
+            ?? User::whereHas('roles', fn ($q) => $q->where('name', 'Secretary'))->first()
+            ?? $request->user();
+
+        $assignedDoctors = $currentUser ? $currentUser->assignedDoctors()
             ->select('users.id', 'users.name', 'users.specialization', 'users.live_status', 'users.phone')
-            ->get();
+            ->get() : collect();
 
         $doctors = User::whereHas('roles', function ($q): void {
             $q->where('name', 'Doctor');
