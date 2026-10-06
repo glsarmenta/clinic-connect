@@ -24,6 +24,11 @@ Route::post('/doctor/clinic-settings', [ClinicSettingsController::class, 'update
 Route::post('/doctor/clinic-settings/staff-assignments', [ClinicSettingsController::class, 'updateStaffAssignments'])->name('doctor.clinic-settings.staff-assignments');
 Route::post('/doctor/clinic-settings/availabilities', [ClinicSettingsController::class, 'updateDoctorAvailability'])->name('doctor.clinic-settings.availabilities');
 
+// Demo Portals (Accessible to everyone during Demo without role restrictions)
+Route::get('/doctor/dashboard', [DoctorWorkspaceController::class, 'index'])->name('doctor.dashboard');
+Route::get('/secretary/dashboard', [SecretaryController::class, 'index'])->name('secretary.dashboard');
+Route::get('/patient/dashboard', [PatientPortalController::class, 'index'])->name('patient.dashboard');
+
 // Authenticated Routes
 Route::get('/dashboard', function () {
     $user = auth()->user();
@@ -45,20 +50,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Doctor & Clinic Owner Workspace Routes (Open for Demo)
-    Route::get('/doctor/dashboard', [DoctorWorkspaceController::class, 'index'])->name('doctor.dashboard');
+    // Doctor Actions (Open for Demo)
     Route::patch('/doctor/live-status', [DoctorWorkspaceController::class, 'updateLiveStatus'])->name('doctor.live-status.update');
     Route::post('/doctor/availability', [DoctorWorkspaceController::class, 'updateAvailability'])->name('doctor.availability.update');
     Route::post('/doctor/call-next', [DoctorWorkspaceController::class, 'callNext'])->name('doctor.call-next');
     Route::patch('/doctor/appointments/{appointment}/complete', [DoctorWorkspaceController::class, 'completeConsultation'])->name('doctor.consultation.complete');
 
-    // Secretary Queue Dashboard Routes (Open for Demo)
-    Route::get('/secretary/dashboard', [SecretaryController::class, 'index'])->name('secretary.dashboard');
+    // Secretary Actions (Open for Demo)
     Route::post('/secretary/walk-in', [SecretaryController::class, 'storeWalkIn'])->name('secretary.walkin.store');
     Route::patch('/secretary/appointments/{appointment}/status', [SecretaryController::class, 'updateStatus'])->name('secretary.appointments.status');
 
-    // Patient Health & Family Portal (Open for Demo)
-    Route::get('/patient/dashboard', [PatientPortalController::class, 'index'])->name('patient.dashboard');
+    // Patient Actions (Open for Demo)
     Route::post('/patient/dependents', [PatientPortalController::class, 'storeDependent'])->name('patient.dependents.store');
     Route::delete('/patient/dependents/{dependent}', [PatientPortalController::class, 'destroyDependent'])->name('patient.dependents.destroy');
 
