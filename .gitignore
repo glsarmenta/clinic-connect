@@ -33,3 +33,4 @@ Thumbs.db
 clinic_connect
 testing
 database/*.sqlite*
+!database/seed.sqlite

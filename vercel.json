@@ -27,6 +27,12 @@
   ],
   "env": {
     "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_KEY": "base64:2zz0MNCbAF2+OE00Jana7HubnVoz0Krcwj+ErhP4IWU=",
+    "APP_URL": "https://clinic-connect-demo-cyan.vercel.app",
+    "ASSET_URL": "https://clinic-connect-demo-cyan.vercel.app",
+    "DB_CONNECTION": "sqlite",
+    "DB_DATABASE": "/tmp/database.sqlite",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",

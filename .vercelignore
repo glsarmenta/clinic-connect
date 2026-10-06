@@ -2,6 +2,7 @@
 *.mp4
 *.pdf
 database/*.sqlite*
+!database/seed.sqlite
 clinic_connect
 testing
 tests/
