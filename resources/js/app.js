@@ -3,11 +3,12 @@ import './bootstrap';
 import { registerSW } from 'virtual:pwa-register';
 
 const updateSW = registerSW({
+  immediate: true,
   onNeedRefresh() {
-    // show a prompt to user
+    updateSW(true);
   },
   onOfflineReady() {
-    // show a ready to work offline to user
+    console.log('Clinic Connect is ready for offline caching.');
   },
 });
 

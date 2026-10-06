@@ -26,20 +26,40 @@ export default defineConfig({
                 globPatterns: ['**/*.{js,css,html,ico,png,svg}']
             },
             manifest: {
+                id: '/',
                 name: 'Clinic Connect',
-                short_name: 'Clinic',
-                description: 'Clinic Management App',
-                theme_color: '#ffffff',
+                short_name: 'Clinic Connect',
+                description: 'Clinic Management & Family Patient Healthcare Portal',
+                theme_color: '#0d9488',
+                background_color: '#ffffff',
+                display: 'standalone',
+                orientation: 'portrait',
+                start_url: '/',
+                scope: '/',
                 icons: [
                     {
-                        src: 'pwa-192x192.jpg',
+                        src: '/pwa-192x192.jpg',
                         sizes: '192x192',
-                        type: 'image/jpeg'
+                        type: 'image/jpeg',
+                        purpose: 'any'
                     },
                     {
-                        src: 'pwa-512x512.jpg',
+                        src: '/pwa-192x192.jpg',
+                        sizes: '192x192',
+                        type: 'image/jpeg',
+                        purpose: 'maskable'
+                    },
+                    {
+                        src: '/pwa-512x512.jpg',
                         sizes: '512x512',
-                        type: 'image/jpeg'
+                        type: 'image/jpeg',
+                        purpose: 'any'
+                    },
+                    {
+                        src: '/pwa-512x512.jpg',
+                        sizes: '512x512',
+                        type: 'image/jpeg',
+                        purpose: 'maskable'
                     }
                 ]
             }
