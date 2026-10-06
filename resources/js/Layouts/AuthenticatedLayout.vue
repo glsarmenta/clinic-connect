@@ -102,7 +102,6 @@ const handleGenerateDemoData = () => {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    v-if="$page.props.auth?.user?.roles?.some(r => r.name === 'Doctor' || r.name === 'Admin' || r === 'Doctor' || r === 'Admin')"
                                     :href="route('doctor.clinic-settings.edit')"
                                     :active="route().current('doctor.clinic-settings.*')"
                                 >

@@ -39,20 +39,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Doctor & Clinic Owner Routes
+    // Doctor & Clinic Owner Workspace Routes
     Route::middleware('role:Doctor|Admin')->group(function () {
         Route::get('/doctor/dashboard', [DoctorWorkspaceController::class, 'index'])->name('doctor.dashboard');
         Route::patch('/doctor/live-status', [DoctorWorkspaceController::class, 'updateLiveStatus'])->name('doctor.live-status.update');
         Route::post('/doctor/availability', [DoctorWorkspaceController::class, 'updateAvailability'])->name('doctor.availability.update');
         Route::post('/doctor/call-next', [DoctorWorkspaceController::class, 'callNext'])->name('doctor.call-next');
         Route::patch('/doctor/appointments/{appointment}/complete', [DoctorWorkspaceController::class, 'completeConsultation'])->name('doctor.consultation.complete');
-
-        // Clinic Homepage & Branding Customization & Staff Assignments (Owner / Doctor)
-        Route::get('/doctor/clinic-settings', [ClinicSettingsController::class, 'edit'])->name('doctor.clinic-settings.edit');
-        Route::post('/doctor/clinic-settings', [ClinicSettingsController::class, 'update'])->name('doctor.clinic-settings.update');
-        Route::post('/doctor/clinic-settings/staff-assignments', [ClinicSettingsController::class, 'updateStaffAssignments'])->name('doctor.clinic-settings.staff-assignments');
-        Route::post('/doctor/clinic-settings/availabilities', [ClinicSettingsController::class, 'updateDoctorAvailability'])->name('doctor.clinic-settings.availabilities');
     });
+
+    // Clinic Homepage & Branding Customization & Staff Assignments (Accessible to everyone during Demo)
+    Route::get('/doctor/clinic-settings', [ClinicSettingsController::class, 'edit'])->name('doctor.clinic-settings.edit');
+    Route::post('/doctor/clinic-settings', [ClinicSettingsController::class, 'update'])->name('doctor.clinic-settings.update');
+    Route::post('/doctor/clinic-settings/staff-assignments', [ClinicSettingsController::class, 'updateStaffAssignments'])->name('doctor.clinic-settings.staff-assignments');
+    Route::post('/doctor/clinic-settings/availabilities', [ClinicSettingsController::class, 'updateDoctorAvailability'])->name('doctor.clinic-settings.availabilities');
 
     // Secretary Queue Dashboard Routes
     Route::middleware('role:Secretary')->group(function () {
