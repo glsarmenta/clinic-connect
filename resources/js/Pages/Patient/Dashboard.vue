@@ -295,10 +295,10 @@ const formatStatusText = (status) => {
             </div>
 
             <!-- 2. DOCTOR AVAILABILITY & INTERACTIVE CLINIC CALENDAR -->
-            <div id="doctor-calendar" class="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-8 space-y-6 scroll-mt-20">
+            <div id="doctor-calendar" class="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-8 space-y-6 scroll-mt-20 overflow-hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 pb-4">
                     <div>
-                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <h3 class="text-base font-bold text-slate-900 flex flex-wrap items-center gap-2">
                             <span>Doctor Availability Calendar</span>
                             <span class="text-xs font-normal text-slate-400">Choose a physician to view their live schedule</span>
                         </h3>
@@ -306,11 +306,11 @@ const formatStatusText = (status) => {
                     </div>
 
                     <!-- Doctor Picker -->
-                    <div class="flex items-center gap-2">
-                        <label class="text-xs font-bold text-slate-600 uppercase">Physician:</label>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto min-w-0">
+                        <label class="text-xs font-bold text-slate-600 uppercase tracking-wide shrink-0">Physician:</label>
                         <select
                             v-model="selectedDoctorId"
-                            class="rounded-xl border-slate-300 text-xs font-semibold py-2 px-3 focus:ring-teal-500 focus:border-teal-500 shadow-xs"
+                            class="w-full sm:w-auto min-w-0 max-w-full rounded-xl border-slate-300 text-xs font-semibold py-2 pl-3 pr-8 focus:ring-teal-500 focus:border-teal-500 shadow-xs truncate bg-white text-slate-800"
                         >
                             <option v-for="d in doctors" :key="d.id" :value="d.id">
                                 {{ d.name }} ({{ d.specialization }})
