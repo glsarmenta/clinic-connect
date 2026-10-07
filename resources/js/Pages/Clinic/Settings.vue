@@ -394,6 +394,35 @@ const submitForm = () => {
                                         <div class="text-xs text-slate-500">{{ form.tagline || 'Tagline will appear here' }}</div>
                                     </div>
                                 </div>
+
+                                <!-- Social Media Sharing Card Mockup (Open Graph) -->
+                                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs space-y-0">
+                                    <div class="px-3 py-2 bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold text-slate-600 flex items-center justify-between">
+                                        <span class="flex items-center gap-1.5">
+                                            <span>🌐</span>
+                                            <span>Social Media Link Preview (Facebook, X, WhatsApp, LinkedIn)</span>
+                                        </span>
+                                        <span class="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Open Graph Active</span>
+                                    </div>
+                                    <div class="relative aspect-[1.91/1] bg-slate-100 overflow-hidden">
+                                        <img
+                                            src="/images/og-preview.jpg"
+                                            alt="Social Media Preview Image"
+                                            class="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div class="p-3 bg-white space-y-1">
+                                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                                            clinicconnect.ph
+                                        </div>
+                                        <div class="font-bold text-slate-900 text-xs line-clamp-1">
+                                            {{ form.name || 'Metro Manila Family & Pediatric Clinic' }} — Healthcare & Clinic Portal
+                                        </div>
+                                        <div class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
+                                            {{ form.tagline || 'Modern medical clinic management and patient care portal with live queue tracking, doctor consultations, and patient portal.' }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -126,6 +126,12 @@ const departments = [
 <template>
     <Head :title="`${clinicName} - CarePlus Health Portal`">
         <link v-if="clinic?.logo_url" rel="icon" :href="clinic.logo_url" />
+        <meta name="description" :content="clinic?.tagline || 'Modern medical clinic & outpatient care portal'" />
+        <meta property="og:title" :content="`${clinicName} — CarePlus Health Portal`" />
+        <meta property="og:description" :content="clinic?.tagline || 'Modern medical clinic & outpatient care portal'" />
+        <meta property="og:image" content="/images/og-preview.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/images/og-preview.jpg" />
     </Head>
 
     <div class="min-h-screen bg-[#f0f8fa] text-slate-800 font-sans antialiased selection:bg-[#00a3b4] selection:text-white">

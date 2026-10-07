@@ -6,11 +6,38 @@
 
         @php
             $clinic = \App\Models\Clinic::first();
+            $siteTitle = $clinic?->name ?? config('app.name', 'Clinic Connect');
+            $siteDescription = $clinic?->tagline ?: ($clinic?->about ? \Illuminate\Support\Str::limit($clinic->about, 160) : 'Modern medical clinic management and patient care portal with live queue tracking, doctor consultations, and patient portal.');
+            $canonicalUrl = url()->current();
+            $ogImage = asset('images/og-preview.jpg');
         @endphp
-        <title inertia>{{ $clinic?->name ?? config('app.name', 'Clinic Connect') }}</title>
+        <title inertia>{{ $siteTitle }}</title>
+        <meta name="title" content="{{ $siteTitle }}">
+        <meta name="description" content="{{ $siteDescription }}">
         <meta name="theme-color" content="#0d9488">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="Clinic Connect">
+
+        <!-- Social Media Open Graph Tags (Facebook, WhatsApp, LinkedIn, Discord, Telegram) -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ $canonicalUrl }}">
+        <meta property="og:site_name" content="{{ $siteTitle }}">
+        <meta property="og:title" content="{{ $siteTitle }} — Healthcare & Clinic Portal">
+        <meta property="og:description" content="{{ $siteDescription }}">
+        <meta property="og:image" content="{{ $ogImage }}">
+        <meta property="og:image:secure_url" content="{{ $ogImage }}">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:alt" content="{{ $siteTitle }} Social Share Banner">
+
+        <!-- Twitter / X Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="{{ $canonicalUrl }}">
+        <meta name="twitter:title" content="{{ $siteTitle }} — Healthcare & Clinic Portal">
+        <meta name="twitter:description" content="{{ $siteDescription }}">
+        <meta name="twitter:image" content="{{ $ogImage }}">
+        <meta name="twitter:image:alt" content="{{ $siteTitle }} Social Share Banner">
 
         <!-- iOS Safari PWA Meta Tags -->
         <meta name="apple-mobile-web-app-capable" content="yes">
